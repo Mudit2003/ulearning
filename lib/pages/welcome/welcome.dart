@@ -1,7 +1,11 @@
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning_app/common/values/colors.dart';
+import 'package:ulearning_app/common/values/constants.dart';
+import 'package:ulearning_app/global.dart';
 import 'package:ulearning_app/pages/welcome/bloc/welcome_bloc.dart';
 
 class WelcomeView extends StatefulWidget {
@@ -31,10 +35,9 @@ class _WelcomeViewState extends State<WelcomeView> {
       builder: (context, state) {
         return Container(
           margin: EdgeInsets.only(top: 34.h),
-          color: Colors.white,
+          color: AppColors.primaryBackground,
           child: Scaffold(
             body: SizedBox(
-              // Recommended to use sizedbox instead of container
               width: 375.w,
               child: Stack(
                 alignment: Alignment.topCenter,
@@ -122,7 +125,7 @@ class _WelcomeViewState extends State<WelcomeView> {
           child: Text(
             title,
             style: TextStyle(
-              color: Colors.black,
+              color: AppColors.primaryText,
               fontSize: 24.sp,
               fontWeight: FontWeight.normal,
             ),
@@ -137,7 +140,7 @@ class _WelcomeViewState extends State<WelcomeView> {
           child: Text(
             subTitle,
             style: TextStyle(
-              color: Colors.black.withOpacity(0.5),
+              color: AppColors.primarySecondaryElementText,
               fontSize: 14.sp,
               fontWeight: FontWeight.normal,
             ),
@@ -152,8 +155,10 @@ class _WelcomeViewState extends State<WelcomeView> {
                 curve: Curves.decelerate,
               );
             } else {
+              Global.storageService
+                  .setBool(AppConstants.storageDeviceOpenFirstTime, true);
               Navigator.of(context).pushNamedAndRemoveUntil(
-                '/myHomePage/',
+                '/signIn/',
                 (route) => false,
               );
             }
@@ -167,14 +172,14 @@ class _WelcomeViewState extends State<WelcomeView> {
             width: 325.w,
             height: 50.h,
             decoration: BoxDecoration(
-                color: Colors.blue[900],
+                color: AppColors.primaryElement,
                 borderRadius: BorderRadius.all(Radius.circular(15.w)),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: AppColors.primaryThirdElementText,
                     spreadRadius: 1,
                     blurRadius: 2,
-                    offset: const Offset(0, 1),
+                    offset: Offset(0, 1),
                     // the offeset value is x , y +x in the right of box , -x in the left of box and so for y
                   ),
                 ]),
@@ -182,7 +187,7 @@ class _WelcomeViewState extends State<WelcomeView> {
               child: Text(
                 buttonName,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.primaryBackground,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.normal,
                 ),
