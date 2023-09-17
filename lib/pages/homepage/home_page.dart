@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning_app/common/values/colors.dart';
 import 'package:ulearning_app/pages/homepage/bloc/home_page_bloc.dart';
+import 'package:ulearning_app/pages/homepage/home_controller.dart';
 import 'package:ulearning_app/pages/homepage/widgets/course_grid.dart';
 import 'package:ulearning_app/pages/homepage/widgets/home_page_text.dart';
 import 'package:ulearning_app/pages/homepage/widgets/home_page_widgets.dart';
@@ -18,11 +19,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late HomeController _homeController;
+  @override
+  void initState() {
+    _homeController = HomeController(context: context);
+    _homeController.init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return _homeController.userProfile != null
+        ? buildScaffold(_homeController)
+        : Container();
+  }
+
+  Scaffold buildScaffold(HomeController homeController) {
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
-      appBar: buildHomePageAppBar(),
+      appBar:
+          buildHomePageAppBar(homeController.userProfile!.avatar.toString()),
       body: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
           return Container(
@@ -31,8 +47,6 @@ class _HomePageState extends State<HomePage> {
                 horizontal: 25.w,
               ),
               child: CustomScrollView(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-
                 slivers: [
                   const SliverToBoxAdapter(
                     child: HomePageText(
@@ -40,9 +54,9 @@ class _HomePageState extends State<HomePage> {
                       color: AppColors.primaryThirdElementText,
                     ),
                   ),
-                  const SliverToBoxAdapter(
+                  SliverToBoxAdapter(
                     child: HomePageText(
-                      text: "Mudit",
+                      text: homeController.userProfile!.name!,
                       color: AppColors.primaryText,
                       top: 0,
                     ),

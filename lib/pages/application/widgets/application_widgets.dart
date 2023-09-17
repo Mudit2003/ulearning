@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning_app/common/values/colors.dart';
-import 'package:ulearning_app/pages/homepage/homepage.dart';
+import 'package:ulearning_app/pages/homepage/home_page.dart';
 import 'package:ulearning_app/pages/profile/profile.dart';
 
 Widget buildApplicationPage(int index) {

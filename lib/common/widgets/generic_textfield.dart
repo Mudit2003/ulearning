@@ -33,9 +33,9 @@ class GenericTextfield extends StatelessWidget {
               margin: EdgeInsets.only(left: 17.w),
               child: Image.asset("assets/icons/$iconName.png"),
             ),
-            SizedBox(
+            Container(
               width: 270.w,
-              height: 50.h,
+              padding: EdgeInsets.only(top: 10.h),
               child: TextField(
                 onChanged: onChange,
                 keyboardType: TextInputType.multiline,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning_app/common/values/colors.dart';
+import 'package:ulearning_app/common/values/constants.dart';
 import 'package:ulearning_app/common/widgets/reusable_text.dart';
 
-AppBar buildHomePageAppBar() {
+AppBar buildHomePageAppBar(String avatar) {
+  print(avatar);
   return AppBar(
     title: Container(
       child: Row(
@@ -19,9 +21,11 @@ AppBar buildHomePageAppBar() {
             child: Container(
               width: 40.h,
               height: 40.h,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/icons/person.png"),
+                  fit: BoxFit.cover,
+                  // server api url shall generally be your domain name
+                  image: NetworkImage('${AppConstants.serverApiUrl}$avatar'),
                 ),
               ),
             ),

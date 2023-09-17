@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulearning_app/common/routes/routes.dart';
@@ -15,7 +18,12 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     void removeUserData() {
       context.read<AppBloc>().add(const AppEventTrigger(index: 0));
+      // FirebaseAuth.instance.signOut();
       Global.storageService.remove(AppConstants.storageUserTokenKey);
+      final encodedJson = jsonEncode(Global.storageService.getUserProfile());
+      print("removal:$encodedJson}");
+      Global.storageService.remove(AppConstants.storageUserProfileKey);
+      print('removed that');
       Navigator.of(context)
           .pushNamedAndRemoveUntil(AppRoutes.signIn, (route) => false);
     }

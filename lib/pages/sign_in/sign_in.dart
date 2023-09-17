@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,6 +45,7 @@ class _SignInViewState extends State<SignInView> {
                     AuthButton(
                       buttonType: "Login",
                       onTap: () {
+                        print("Sign In on the go");
                         SignInController(context: context)
                             .handleSignIn('email');
                       },

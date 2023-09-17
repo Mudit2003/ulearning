@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning_app/common/values/colors.dart';
 import 'package:ulearning_app/pages/application/bloc/app_bloc.dart';
 import 'package:ulearning_app/pages/application/widgets/application_widgets.dart';
 import 'package:ulearning_app/pages/application/widgets/bottom_navigation_bar.dart';
@@ -22,8 +20,9 @@ class _ApplicationViewState extends State<ApplicationView> {
           color: Colors.white,
           child: SafeArea(
             child: Scaffold(
-              body: buildApplicationPage(state.index),
-              bottomNavigationBar: AppBottomNavigationBar(index: state.index),
+              body: buildApplicationPage(context.read<AppBloc>().state.index),
+              bottomNavigationBar: AppBottomNavigationBar(
+                  index: context.read<AppBloc>().state.index),
             ),
           ),
         );

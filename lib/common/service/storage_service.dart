@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ulearning_app/common/entities/user.dart';
 import 'package:ulearning_app/common/values/constants.dart';
 
 class StorageService {
@@ -26,7 +29,23 @@ class StorageService {
         : true;
   }
 
-  Future<bool> remove(String key) {
-    return _preferences.remove(key);
+  Future<bool> remove(String key) async {
+    print('removal');
+    try {
+      bool loggedOut = await _preferences.remove(key);
+      return loggedOut;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  UserItem? getUserProfile() {
+    var profileOffline =
+        _preferences.getString(AppConstants.storageUserProfileKey) ?? '';
+    if (profileOffline.isNotEmpty) {
+      return UserItem.fromJson(jsonDecode(profileOffline));
+    }
+    return null; // all null fields some null checking for id will be required
   }
 }

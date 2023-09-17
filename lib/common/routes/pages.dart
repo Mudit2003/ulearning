@@ -9,7 +9,7 @@ import 'package:ulearning_app/global.dart';
 import 'package:ulearning_app/pages/application/application_view.dart';
 import 'package:ulearning_app/pages/application/bloc/app_bloc.dart';
 import 'package:ulearning_app/pages/homepage/bloc/home_page_bloc.dart';
-import 'package:ulearning_app/pages/homepage/homepage.dart';
+import 'package:ulearning_app/pages/homepage/home_page.dart';
 import 'package:ulearning_app/pages/profile/settings/bloc/settings_bloc.dart';
 import 'package:ulearning_app/pages/profile/settings/settings_page.dart';
 import 'package:ulearning_app/pages/register/bloc/register_bloc.dart';
@@ -62,13 +62,16 @@ class AppPageRoutes {
   static MaterialPageRoute generateRouteSettings(RouteSettings settings) {
     if (settings.name != null) {
       // check for route name matching wehn navigator gets trigerred
+      // from list of page entity retrieve the route that is same as your route
       Iterable<PageEntity> result =
           routes().where((element) => element.route == settings.name);
       if (result.isNotEmpty) {
+        // if the result was not empty
         bool deviceFirstOpen = Global.storageService.getDeviceFirstOpen();
+        // get the status if it is the first time user logged in p
         if (result.first.route == AppRoutes.initial && deviceFirstOpen) {
           bool isLoggedIn = Global.storageService.isLoggedIn;
-          log(isLoggedIn.toString());
+          print(isLoggedIn.toString());
           if (isLoggedIn) {
             return MaterialPageRoute(
                 builder: (_) => const ApplicationView(), settings: settings);
